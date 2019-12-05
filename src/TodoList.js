@@ -6,6 +6,7 @@ class TodoList extends React.Component{
     constructor(props){
         super(props);
     }
+
     render(){
         return (
             <div className="todo-list">
@@ -16,7 +17,6 @@ class TodoList extends React.Component{
                         return <Todo
                             {...todo}
                             key={todo.id}
-                            onCheckedToggle={this.props.onCheckedToggle}
                         />
                     })
                 }
@@ -24,5 +24,4 @@ class TodoList extends React.Component{
         );
     }
 }
-
 export default TodoList;

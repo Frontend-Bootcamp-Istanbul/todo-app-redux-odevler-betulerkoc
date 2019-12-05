@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {setFilter, removeTodo} from "./actionCreators/actionCreaters";
+import {removeTodo, toggleTodo} from "./actionCreators/actionCreaters";
 
 function Todo(props) {
     const {content, id, checked} = props;
@@ -8,8 +8,9 @@ function Todo(props) {
     if(checked){
         itemClass += " checked";
     }
+
     return (
-        <div className={itemClass} onClick={() => {props.onCheckedToggle(id);}}>
+        <div className={itemClass} onClick={() => {props.toggleTodo(id);}}>
             {content}
             <span
                 className="remove-todo"
@@ -19,7 +20,8 @@ function Todo(props) {
 }
 
 const mapDispatchToProps = dispatch => ({
-    removeTodo: (id) => {dispatch(removeTodo(id))}
+    removeTodo: (id) => {dispatch(removeTodo(id))},
+    toggleTodo: (id) => {dispatch(toggleTodo(id))}
 });
 
 export default connect(null, mapDispatchToProps)(Todo);

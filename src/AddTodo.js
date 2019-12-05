@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from "react-redux";
+import {addTodo} from "./actionCreators/actionCreaters";
 
 
 class AddTodo extends React.Component {
@@ -11,6 +13,14 @@ class AddTodo extends React.Component {
         this.addTodo = this.addTodo.bind(this);
     }
 
+    addNewTodo(newTodo){
+        this.props.addTodo({
+            content: newTodo,
+            id: Math.random(),
+            checked: false
+        });
+    }
+
     changeInput(e){
         const newVal = e.target.value;
         this.setState({
@@ -20,14 +30,13 @@ class AddTodo extends React.Component {
 
     addTodo(event){
         event.preventDefault();
-        this.props.onTodoAdd(this.state.inputVal);
+        this.addNewTodo(this.state.inputVal);
         this.setState({
             inputVal: ""
         });
     }
 
     render() {
-        const {onAdd} = this.props;
         return <form
             onSubmit={this.addTodo}>
             <input
@@ -39,4 +48,8 @@ class AddTodo extends React.Component {
     }
 }
 
-export default AddTodo;
+const mapDispatchToProps = dispatch => ({
+    addTodo: (todo) => {dispatch(addTodo(todo))}
+});
+
+export default connect(null, mapDispatchToProps)(AddTodo);

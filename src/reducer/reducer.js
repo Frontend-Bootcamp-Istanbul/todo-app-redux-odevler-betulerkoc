@@ -1,4 +1,4 @@
-import {SET_FILTER, SET_TODOS, ADD_TODO, REMOVE_TODO} from "../actions/actions";
+import {SET_FILTER, SET_TODOS, ADD_TODO, REMOVE_TODO, TOGGLE_TODO, REMOVE_ALL} from "../actions/actions";
 
 const rootReducer = function (state = {
     activeFilter: "all",
@@ -16,6 +16,22 @@ const rootReducer = function (state = {
             return {
                 ...state,
                 todos: newTodos
+            };
+        case REMOVE_ALL:
+            return {todos: []};
+        case TOGGLE_TODO:
+            const newArr = state.todos.map((todo) => {
+                if(action.id === todo.id){
+                    let currentTodo = {...todo};
+                    currentTodo.checked = !currentTodo.checked;
+                    return currentTodo;
+                }else{
+                    return todo;
+                }
+            });
+            return {
+                ...state,
+                todos: newArr
             };
         default:
             return state;
